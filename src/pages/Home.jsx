@@ -65,12 +65,10 @@ function Home() {
       </form>
 
       <div className="disc-grid">
-        {discs.map(
-          (disc) =>
-            disc.name.toLowerCase().startsWith(searchQuery) && (
-              <DiscCard disc={disc} key={disc.id} />
-            )
-        )}
+        {discs.map((disc) => (
+          // disc.name.toLowerCase().startsWith(searchQuery) &&
+          <DiscCard disc={disc} key={disc.id} />
+        ))}
       </div>
     </div>
   );
