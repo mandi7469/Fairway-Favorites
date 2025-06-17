@@ -1,3 +1,5 @@
+import "../css/DiscCard.css"
+
 function DiscCard({ disc }) {
   function onFavoriteClick() {
     alert("clicked");
@@ -8,7 +10,7 @@ function DiscCard({ disc }) {
       <div className="disc-poster">
         <img src={disc.pic} alt={disc.title} />
         <div className="disc-overlay">
-          <button className="favorite-btm" onClick={onFavoriteClick}>
+          <button className="favorite-btn" onClick={onFavoriteClick}>
             ♥︎
           </button>
         </div>
