@@ -1,8 +1,14 @@
+import { useDiscContext } from "../contexts/DiscContext";
 import "../css/DiscCard.css";
 
 function DiscCard({ disc }) {
-  function onFavoriteClick() {
-    alert("clicked");
+  const { isFavorite, addToFavorites, removeFromFavorites } = useDiscContext();
+  const favorite = isFavorite(disc.id);
+
+  function onFavoriteClick(e) {
+    e.preventDefault();
+    if (favorite) removeFromFavorites(disc.id);
+    else addToFavorites(disc);
   }
 
   return (
@@ -10,7 +16,10 @@ function DiscCard({ disc }) {
       <div className="disc-poster">
         <img src={disc.pic || null} alt={disc.name} />
         <div className="disc-overlay">
-          <button className="favorite-btn" onClick={onFavoriteClick}>
+          <button
+            className={`favorite-btn ${favorite ? "active" : ""}`}
+            onClick={onFavoriteClick}
+          >
             ♥︎
           </button>
         </div>

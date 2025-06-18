@@ -8,7 +8,6 @@ function Home() {
   const [filteredDiscs, setFilteredDiscs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [noResultsMessage, setNoResultsMessage] = useState(false);
 
   useEffect(() => {
     // Define the async function to fetch data
@@ -63,10 +62,6 @@ function Home() {
           value={searchQuery}
           onChange={handleSearch}
         />
-
-        {/* <button type="submit" className="search-btn" onChange={handleSearch}>
-          Search
-        </button> */}
       </form>
 
       {error && <div className="error-message">{error}</div>}

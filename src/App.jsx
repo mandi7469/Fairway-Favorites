@@ -1,12 +1,13 @@
 import { Routes, Route } from "react-router-dom";
-import "./css/App.css"
 import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
+import { DiscProvider } from "./contexts/DiscContext";
 import NavBar from "./components/NavBar";
+import "./css/App.css";
 
 function App() {
   return (
-    <div>
+    <DiscProvider>
       <NavBar />
       <main className="main-content">
         <Routes>
@@ -14,7 +15,7 @@ function App() {
           <Route path="/favorites" element={<Favorites />} />
         </Routes>
       </main>
-    </div>
+    </DiscProvider>
   );
 }
 
