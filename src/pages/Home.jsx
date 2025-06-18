@@ -1,76 +1,85 @@
 import DiscCard from "../components/DiscCard";
-import { useState } from "react";
-import "../css/Home.css"
+import { useState, useEffect } from "react";
+import "../css/Home.css";
 
 function Home() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [allDiscs, setAllDiscs] = useState([]);
+  const [filteredDiscs, setFilteredDiscs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [noResultsMessage, setNoResultsMessage] = useState(false);
 
-  const discs = [
-    {
-      id: 1,
-      name: "Eagle",
-      category: "Control Driver",
-      speed: "7",
-      glide: "4",
-      turn: "-1",
-      fade: "3",
-    },
-    {
-      id: 2,
-      name: "Warden",
-      category: "Putter",
-      speed: "2",
-      glide: "3",
-      turn: "0",
-      fade: "1",
-    },
-    {
-      id: 3,
-      name: "Destroyer",
-      category: "Distance Driver",
-      speed: "12",
-      glide: "5",
-      turn: "-1",
-      fade: "3",
-    },
-    {
-      id: 4,
-      name: "Spruce",
-      category: "Midrange",
-      speed: "5",
-      glide: "4",
-      turn: "-1",
-      fade: "2",
-    },
-  ];
+  useEffect(() => {
+    // Define the async function to fetch data
+    const fetchDiscs = async () => {
+      try {
+        const response = await fetch("https://discit-api.fly.dev/disc");
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setAllDiscs(data);
+        setFilteredDiscs(data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDiscs();
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
-    alert(searchQuery);
-    setSearchQuery("");
+    const term = e.target.value.toLowerCase();
+    setSearchQuery(term);
+
+    const results = allDiscs.filter(
+      (disc) =>
+        disc.name.toLowerCase().includes(term) ||
+        (disc.category && disc.category.toLowerCase().includes(term))
+    );
+    setFilteredDiscs(results);
   };
+
+  if (loading) {
+    console.log("Failed to load discs");
+  }
+
+  if (error) {
+    console.log("Failed to search discs");
+  }
 
   return (
     <div className="home">
-      <form onSubmit={handleSearch} className="search-form">
+      <form className="search-form">
         <input
           type="text"
-          placeholder="Search for discs..."
+          placeholder="Search for discs by name or category..."
           className="search-input"
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={handleSearch}
         />
-        <button type="submit" className="search-btn">
+
+        {/* <button type="submit" className="search-btn" onChange={handleSearch}>
           Search
-        </button>
+        </button> */}
       </form>
 
-      <div className="disc-grid">
-        {discs.map((disc) => (
-          // disc.name.toLowerCase().startsWith(searchQuery) &&
-          <DiscCard disc={disc} key={disc.id} />
-        ))}
-      </div>
+      {error && <div className="error-message">{error}</div>}
+
+      {loading ? (
+        <div className="loading">Loading...</div>
+      ) : (
+        <div className="disc-grid">
+          {filteredDiscs.map((disc) => (
+            <DiscCard disc={disc} key={disc.id} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

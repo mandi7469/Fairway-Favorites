@@ -29,7 +29,9 @@
   box-shadow: 0 0 0 2px #666;
 }
 
-.search-btn {
+/* create error CSS */
+
+/* .search-btn {
   padding: 0.75rem 1.5rem;
   background-color: #588157;
   color: white;
@@ -41,7 +43,7 @@
 
 .search-btn:hover {
   background-color: #3a5a40;
-}
+} */
 
 @media (max-width: 639px) {
   .home {

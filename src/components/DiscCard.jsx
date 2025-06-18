@@ -1,4 +1,4 @@
-import "../css/DiscCard.css"
+import "../css/DiscCard.css";
 
 function DiscCard({ disc }) {
   function onFavoriteClick() {
@@ -8,7 +8,7 @@ function DiscCard({ disc }) {
   return (
     <div className="disc-card">
       <div className="disc-poster">
-        <img src={disc.pic} alt={disc.title} />
+        <img src={disc.pic || null} alt={disc.name} />
         <div className="disc-overlay">
           <button className="favorite-btn" onClick={onFavoriteClick}>
             ♥︎
