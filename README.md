@@ -1,4 +1,13 @@
+<div align="center">
+
 # Fairway Favorites
+
+[![Static Badge](https://img.shields.io/badge/GitHub-mandi7469-darkgreen)](https://github.com/mandi7469)
+[![Static Badge](https://img.shields.io/badge/LinkedIn-amandachanga-blue%20)](https://www.linkedin.com/in/amanda-changa/)
+
+[Deployed application link coming soon]() 
+
+</div>
 
 ## Description
 
