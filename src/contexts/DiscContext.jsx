@@ -1,19 +1,28 @@
 // disc context provider for favorites
 import { createContext, useState, useContext, useEffect } from "react";
 
+// created a new react context. This will be used to share the 'disc' related state
+// and functions throughout the component tree without prop drilling
 const DiscContext = createContext();
 
 export const useDiscContext = () => useContext(DiscContext);
 
+// discProvider component that wraps the application. Manages state for user's favorite discs
+// and provides functions to interact with this state to it's children components
 export const DiscProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
 
+  // useEffect to load favorite discs from localStorage when the component mounts
+  // this ensures that user's favorites persist across sessions
   useEffect(() => {
     const storedFavs = localStorage.getItem("favorites");
 
+    // if favorites are found in localStorage, parse them and update the state
     if (storedFavs) setFavorites(JSON.parse(storedFavs));
   }, []);
 
+  // useEffect to save the current favorites to localStorage whenever the 'favorites' state changes
+  // this keeps localStorage in sync with the application's state
   useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
@@ -30,6 +39,7 @@ export const DiscProvider = ({ children }) => {
     return favorites.some((disc) => disc.id === discId);
   };
 
+  // the value object that will be provided to consumers of this context. It includes the favorites array and the functions to manipulate it.
   const value = {
     favorites,
     addToFavorites,
@@ -37,7 +47,6 @@ export const DiscProvider = ({ children }) => {
     isFavorite,
   };
 
-  return <DiscContext.Provider value={value}>
-    {children}
-    </DiscContext.Provider>;
+  // render the DiscContext.Provider, making the 'value' available to all components rendered within its 'children'
+  return <DiscContext.Provider value={value}>{children}</DiscContext.Provider>;
 };

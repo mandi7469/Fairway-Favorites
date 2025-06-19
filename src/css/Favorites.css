@@ -25,7 +25,7 @@
 .favorites-empty h2 {
   margin-bottom: 1rem;
   font-size: 2rem;
-  color: #e50914;
+  color: #588157;
 }
 
 .favorites-empty p {
@@ -34,18 +34,3 @@
   line-height: 1.6;
 }
 
-/* animation for new favorites being added */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.disc-grid > * {
-  animation: fadeIn 0.3s ease-out forwards;
-}
