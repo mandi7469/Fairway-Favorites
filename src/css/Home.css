@@ -29,6 +29,28 @@
   box-shadow: 0 0 0 2px #588157;
 }
 
+.filter-btn-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.filter-btn {
+  padding: 0.5rem 0.75rem;
+  background-color: #588157;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.5s;
+  margin-left: 40px;
+}
+
+.filter-btn:hover {
+  background-color: #3a5a40;
+  transform: scale(1.09);
+}
+
 .loading {
   font-size: 2rem;
   color: #e50914;
@@ -41,6 +63,10 @@
 
   .search-form {
     margin-bottom: 1rem;
+  }
+
+  .filter-btn {
+    padding: 0.4rem 0.65rem;
   }
 }
 

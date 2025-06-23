@@ -1,6 +1,7 @@
 // imports
 import DiscCard from "../components/DiscCard";
 import { useState, useEffect } from "react";
+import FilterDialog from "../components/FilterDialog";
 import "../css/Home.css";
 
 // home component displays a list of discs, provides search functionality and handles data fetching from an API
@@ -10,6 +11,8 @@ function Home() {
   const [filteredDiscs, setFilteredDiscs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isFilterDialogOpen, setIsFilterDialogOpen] = useState(false);
+
 
   // useEffect hook to fetch disc data when the component mounts
   // the empty dependency array `[]` ensures this effect runs only once after the initial render
@@ -76,6 +79,15 @@ function Home() {
           onChange={handleSearch} // calls handleSearch function on input change
         />
       </form>
+      <div className="filter-btn-container">
+        <button
+          className="filter-btn"
+          type="button"
+          onClick={() => setIsFilterDialogOpen(true)}
+        >
+          Filter
+        </button>
+      </div>
 
       {error && <div className="error-message">{error}</div>}
 
@@ -90,6 +102,11 @@ function Home() {
           ))}
         </div>
       )}
+
+      <FilterDialog
+        isOpen={isFilterDialogOpen}
+        onClose={() => setIsFilterDialogOpen(false)}
+      />
     </div>
   );
 }
