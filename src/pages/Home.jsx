@@ -4,6 +4,14 @@ import { useState, useEffect } from "react";
 import FilterDialog from "../components/FilterDialog";
 import "../css/Home.css";
 
+
+const initialValueState = {
+  speed: [1, 15], // Speed typically ranges from 1 to 15
+  glide: [1, 7],  // Glide typically ranges from 1 to 7
+  turn: [-5, 1],  // Turn typically ranges from -5 to +1
+  fade: [0, 5],   // Fade typically ranges from 0 to 5
+};
+
 // home component displays a list of discs, provides search functionality and handles data fetching from an API
 function Home() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -12,6 +20,7 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isFilterDialogOpen, setIsFilterDialogOpen] = useState(false);
+  const [activeFilters, setActiveFilters] = useState(initialValueState); // State to hold active numerical filters
 
 
   // useEffect hook to fetch disc data when the component mounts

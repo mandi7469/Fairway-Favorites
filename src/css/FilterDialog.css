@@ -5,7 +5,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6); 
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,12 +13,12 @@
 }
 
 .filter-dialog-content {
-  background-color: #f8f9fa; 
+  background-color: #f8f9fa;
   padding: 30px;
   border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   width: 90%;
-  max-width: 500px; 
+  max-width: 500px;
   position: relative;
   color: #333;
 }
@@ -29,4 +29,95 @@
   font-size: 1.8rem;
   text-align: center;
   margin-bottom: 25px;
+}
+
+.filter-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filter-group label {
+  font-weight: 600;
+  color: #495057;
+  font-size: 1rem;
+}
+
+.filter-value {
+  font-weight: bold;
+  color: #588157;
+}
+
+.filter-slider {
+  width: 100%;
+  height: 8px;
+  border-radius: 5px;
+  background: #ddd;
+  outline: none;
+  transition: opacity 0.2s;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.filter-slider:hover {
+  opacity: 1;
+}
+
+.filter-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #588157;
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.filter-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #588157;
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.filter-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.action-button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.action-button.clear-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.action-button.clear-button:hover {
+  background-color: #c82333;
+  transform: translateY(-2px);
+}
+
+.action-button.apply-button {
+  background-color: #588157;
+  color: white;
+}
+
+.action-button.apply-button:hover {
+  background-color: #4d714d;
+  transform: translateY(-2px);
 }

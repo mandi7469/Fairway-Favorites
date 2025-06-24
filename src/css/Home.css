@@ -48,7 +48,8 @@
 
 .filter-btn:hover {
   background-color: #3a5a40;
-  transform: scale(1.09);
+  transform: translateY(-2px);
+  /* transform: scale(1.09); */
 }
 
 .loading {

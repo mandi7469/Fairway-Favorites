@@ -2,13 +2,114 @@
 import { useState, useEffect } from "react";
 import "../css/FilterDialog.css";
 
-function FilterDialog({ isOpen, onClose }) {
+function FilterDialog({ isOpen, onClose, initialValue }) {
+  const [speed, setSpeed] = useState(initialValue);
+  const [glide, setGlide] = useState(initialValue);
+  const [turn, setTurn] = useState(initialValue);
+  const [fade, setFade] = useState(initialValue);
+
+  const handleSpeedChange = (e) => {
+    setSpeed(Number(e.target.value));
+  };
+
+  const handleGlideChange = (e) => {
+    setGlide(Number(e.target.value));
+  };
+
+  const handleTurnChange = (e) => {
+    setTurn(Number(e.target.value));
+  };
+
+  const handleFadeChange = (e) => {
+    setFade(Number(e.target.value));
+  };
+
+  // useEffect to update local dialog state when initialFilters prop changes
+  // this ensures the dialog reflects the currently applied filters when reopened
+  useEffect(() => {
+    setSpeed(initialValue);
+    setGlide(initialValue);
+    setTurn(initialValue);
+    setFade(initialValue);
+  }, [initialValue]);
+
   if (!isOpen) return null;
 
   return (
     <div className="filter-dialog-overlay" onClick={onClose}>
-      <div className="filter-dialog-content" onClick={(e) => e.stopPropagation()}>{" "}{/* Prevent clicks inside dialog from closing it */}
+      {" "}
+      {/* Click overlay to close */}
+      <div
+        className="filter-dialog-content"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {" "}
+        {/* Prevent clicks inside dialog from closing it */}
         <h2>Filter Discs by Flight</h2>
+        {/* speed filter */}
+        <div className="filter-group">
+          <label htmlFor="speed">
+            Speed: <span className="fliter-value">{speed}</span>
+          </label>
+          <input
+            type="range"
+            id="speed"
+            min="1"
+            max="15"
+            value={speed}
+            onChange={handleSpeedChange}
+            className="filter-slider"
+          />
+        </div>
+        {/* glide filter */}
+        <div className="filter-group">
+          <label htmlFor="glide">
+            Glide: <span className="fliter-value">{glide}</span>
+          </label>
+          <input
+            type="range"
+            id="glide"
+            min="1"
+            max="7"
+            value={glide}
+            onChange={handleGlideChange}
+            className="filter-slider"
+          />
+        </div>
+        {/* turn filter */}
+        <div className="filter-group">
+          <label htmlFor="turn">
+            Turn: <span className="fliter-value">{turn}</span>
+          </label>
+          <input
+            type="range"
+            id="turn"
+            min="-5"
+            max="1"
+            value={turn}
+            onChange={handleTurnChange}
+            className="filter-slider"
+          />
+        </div>
+        {/* fade filter */}
+        <div className="filter-group">
+          <label htmlFor="fade">
+            Fade: <span className="fliter-value">{fade}</span>
+          </label>
+          <input
+            type="range"
+            id="fade"
+            min="0"
+            max="5"
+            value={fade}
+            onChange={handleFadeChange}
+            className="filter-slider"
+          />
+        </div>
+        <div className="filter-actions">
+          <button className="action-button clear-button">Clear Filters</button>
+          <button className="action-button apply-button">Apply Filters</button>
+        </div>
       </div>
     </div>
   );
