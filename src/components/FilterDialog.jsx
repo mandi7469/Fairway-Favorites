@@ -2,11 +2,11 @@
 import { useState, useEffect } from "react";
 import "../css/FilterDialog.css";
 
-function FilterDialog({ isOpen, onClose, initialValue }) {
-  const [speed, setSpeed] = useState(initialValue);
-  const [glide, setGlide] = useState(initialValue);
-  const [turn, setTurn] = useState(initialValue);
-  const [fade, setFade] = useState(initialValue);
+function FilterDialog({ isOpen, onClose, initialFilters, onApplyFilters }) {
+  const [speed, setSpeed] = useState(initialFilters.speed);
+  const [glide, setGlide] = useState(initialFilters.glide);
+  const [turn, setTurn] = useState(initialFilters.turn);
+  const [fade, setFade] = useState(initialFilters.fade);
 
   const handleSpeedChange = (e) => {
     setSpeed(Number(e.target.value));
@@ -27,11 +27,29 @@ function FilterDialog({ isOpen, onClose, initialValue }) {
   // useEffect to update local dialog state when initialFilters prop changes
   // this ensures the dialog reflects the currently applied filters when reopened
   useEffect(() => {
-    setSpeed(initialValue);
-    setGlide(initialValue);
-    setTurn(initialValue);
-    setFade(initialValue);
-  }, [initialValue]);
+    setSpeed(initialFilters.speed);
+    setGlide(initialFilters.glide);
+    setTurn(initialFilters.turn);
+    setFade(initialFilters.fade);
+  }, [initialFilters]);
+
+  // function to handle applying filter
+  const handleApplyClick = () => {
+    onApplyFilters({ speed, glide, turn, fade });
+    onClose();
+  };
+
+  // function to handle clearing filters
+  const handleClearClick = () => {
+    const clearedFilters = {speed: 8, glide: 4, turn: -2, fade: 2};
+    setSpeed(clearedFilters.speed);
+    setGlide(clearedFilters.glide);
+    setTurn(clearedFilters.turn);
+    setFade(clearedFilters.fade)
+
+    onApplyFilters(clearedFilters, true)
+    onClose()
+  }
 
   if (!isOpen) return null;
 
@@ -107,8 +125,13 @@ function FilterDialog({ isOpen, onClose, initialValue }) {
           />
         </div>
         <div className="filter-actions">
-          <button className="action-button clear-button">Clear Filters</button>
-          <button className="action-button apply-button">Apply Filters</button>
+          <button onClick={handleClearClick} className="action-button clear-button">Clear Filters</button>
+          <button
+            onClick={handleApplyClick}
+            className="action-button apply-button"
+          >
+            Apply Filters
+          </button>
         </div>
       </div>
     </div>

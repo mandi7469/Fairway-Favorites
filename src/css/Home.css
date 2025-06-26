@@ -57,6 +57,11 @@
   color: #e50914;
 }
 
+.error-message {
+  font-size: 2rem;
+  color: #e50914;
+}
+
 @media (max-width: 639px) {
   .home {
     padding: 1rem 0;
