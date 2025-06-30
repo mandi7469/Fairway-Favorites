@@ -5,10 +5,10 @@ import FilterDialog from "../components/FilterDialog";
 import "../css/Home.css";
 
 const initialFlightFiltersState = {
-  speed: 8, // Speed typically ranges from 1 to 15
-  glide: 4, // Glide typically ranges from 1 to 7
-  turn: -2, // Turn typically ranges from -5 to +1
-  fade: 2, // Fade typically ranges from 0 to 5
+  speed: 8, // speed typically ranges from 1 to 15
+  glide: 4, // glide typically ranges from 1 to 7
+  turn: -2, // turn typically ranges from -5 to +1
+  fade: 2, // fade typically ranges from 0 to 5
 };
 
 // home component displays a list of discs, provides search functionality and handles data fetching from an API
@@ -19,9 +19,11 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isFilterDialogOpen, setIsFilterDialogOpen] = useState(false);
+
+   // state to hold active numerical filters
   const [activeFlightFilters, setActiveFlightFilters] = useState(
     initialFlightFiltersState
-  ); // State to hold active numerical filters
+  ); 
   const [activeSearchType, setActiveSearchType] = useState("text");
 
   // useEffect hook to fetch disc data when the component mounts
@@ -71,21 +73,25 @@ function Home() {
     setFilteredDiscs(results);
   };
 
+  // function to handle the flight filtering
   const handleApplyFlightFilters = (filters, isClear = false) => {
+    // sets the state to apply flight filters and clear any text search
     setActiveFlightFilters(filters);
     setSearchQuery("");
 
     if (isClear) {
+      // if clearing filters, reset to all discs and text search
       setFilteredDiscs(allDiscs);
       setActiveSearchType("text");
     } else {
+      // apply flight filters to disc
       setActiveSearchType("flight");
       const flightFilteredResults = allDiscs.filter((disc) => {
         return (
-          (disc.speed == filters.speed ) &&
-          (disc.glide == filters.glide) &&
-          (disc.turn == filters.turn) &&
-          (disc.fade == filters.fade)
+          disc.speed == filters.speed &&
+          disc.glide == filters.glide &&
+          disc.turn == filters.turn &&
+          disc.fade == filters.fade
         );
       });
       setFilteredDiscs(flightFilteredResults);
@@ -130,7 +136,9 @@ function Home() {
         <div className="disc-grid">
           {/* Display a message if no discs are found for the current filter/search */}
           {filteredDiscs.length === 0 && !loading && !error && (
-            <div className="error-message">No discs found matching your criteria</div>
+            <div className="error-message">
+              No discs found matching your criteria
+            </div>
           )}
           {/* map through the filteredDiscs array and render a DiscCard for each disc */}
           {filteredDiscs.map((disc) => (
@@ -138,7 +146,7 @@ function Home() {
           ))}
         </div>
       )}
-
+      {/* filter dialog component */}
       <FilterDialog
         isOpen={isFilterDialogOpen}
         onClose={() => setIsFilterDialogOpen(false)}

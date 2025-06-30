@@ -8,6 +8,7 @@ function FilterDialog({ isOpen, onClose, initialFilters, onApplyFilters }) {
   const [turn, setTurn] = useState(initialFilters.turn);
   const [fade, setFade] = useState(initialFilters.fade);
 
+  // state handling for each flight filter
   const handleSpeedChange = (e) => {
     setSpeed(Number(e.target.value));
   };
@@ -41,15 +42,15 @@ function FilterDialog({ isOpen, onClose, initialFilters, onApplyFilters }) {
 
   // function to handle clearing filters
   const handleClearClick = () => {
-    const clearedFilters = {speed: 8, glide: 4, turn: -2, fade: 2};
+    const clearedFilters = { speed: 8, glide: 4, turn: -2, fade: 2 };
     setSpeed(clearedFilters.speed);
     setGlide(clearedFilters.glide);
     setTurn(clearedFilters.turn);
-    setFade(clearedFilters.fade)
+    setFade(clearedFilters.fade);
 
-    onApplyFilters(clearedFilters, true)
-    onClose()
-  }
+    onApplyFilters(clearedFilters, true);
+    onClose();
+  };
 
   if (!isOpen) return null;
 
@@ -125,7 +126,12 @@ function FilterDialog({ isOpen, onClose, initialFilters, onApplyFilters }) {
           />
         </div>
         <div className="filter-actions">
-          <button onClick={handleClearClick} className="action-button clear-button">Clear Filters</button>
+          <button
+            onClick={handleClearClick}
+            className="action-button clear-button"
+          >
+            Clear Filters
+          </button>
           <button
             onClick={handleApplyClick}
             className="action-button apply-button"
