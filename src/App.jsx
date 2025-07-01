@@ -5,6 +5,7 @@ import Favorites from "./pages/Favorites";
 import { DiscProvider } from "./contexts/DiscContext";
 import NavBar from "./components/NavBar";
 import "./css/App.css";
+import Game from "./pages/Game";
 
 // main application component that sets up overall structure including routing, global state provision and navigation
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/favorites" element={<Favorites />} />
+          <Route path="/game" element={<Game />} />
         </Routes>
       </main>
     </DiscProvider>
