@@ -10,28 +10,38 @@ export const useDiscContext = () => useContext(DiscContext);
 // discProvider component that wraps the application. Manages state for user's favorite discs
 // and provides functions to interact with this state to it's children components
 export const DiscProvider = ({ children }) => {
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useState(localStorage.getItem("favorites") ? JSON.parse(localStorage.getItem("favorites")) : []);
 
   // useEffect to load favorite discs from localStorage when the component mounts
   // this ensures that user's favorites persist across sessions
   useEffect(() => {
     const storedFavs = localStorage.getItem("favorites");
+    console.log('Loading favorites from localStorage:', storedFavs)
 
     // if favorites are found in localStorage, parse them and update the state
-    if (storedFavs) setFavorites(JSON.parse(storedFavs));
+    if (storedFavs) {
+      try {
+        setFavorites(JSON.parse(storedFavs));
+      } catch (e){
+        console.log('Error parsing favorites from localStorage:', e)
+      }
+    }
   }, []);
 
   // useEffect to save the current favorites to localStorage whenever the 'favorites' state changes
   // this keeps localStorage in sync with the application's state
   useEffect(() => {
+    console.log("Saving favorites to localStorage:", favorites);
     localStorage.setItem("favorites", JSON.stringify(favorites));
   }, [favorites]);
 
   const addToFavorites = (disc) => {
+    console.log("Adding to favorites:", disc);
     setFavorites((prev) => [...prev, disc]);
   };
 
   const removeFromFavorites = (discId) => {
+    console.log("Removing from favorites:", discId);
     setFavorites((prev) => prev.filter((disc) => disc.id !== discId));
   };
 
