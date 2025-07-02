@@ -1,12 +1,15 @@
+// css import
 import "../css/Game.css";
 
-
-const Notification = ({showNotification}) => {
+// the main container for the notification
+const Notification = ({ showNotification }) => {
   return (
-   <div className={`notification-container ${showNotification ? 'show' : ''}`}>
+    // the 'show' class is conditionally applied based on the 'showNotification' prop,
+    // which handles the display of the notification via css
+    <div className={`notification-container ${showNotification ? "show" : ""}`}>
       <p>You have already entered this letter</p>
     </div>
-  )
-}
+  );
+};
 
-export default Notification
+export default Notification;

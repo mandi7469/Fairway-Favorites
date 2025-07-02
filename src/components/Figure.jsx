@@ -1,6 +1,9 @@
+// css import
 import "../css/Game.css";
 
+// figure component that visually represents the hangman based on the number of wrong guesses
 const Figure = ({ wrongLetters }) => {
+  // calculates the number of errors (wrong guesses) made by the player
   const errors = wrongLetters.length;
   return (
     <svg height="250" width="200" className="figure-container">
