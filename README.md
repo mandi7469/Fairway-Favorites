@@ -11,7 +11,7 @@
 
 ## Description
 
-Fairway Favorites is a react app that allows a user to search for their favorite disc golf disc and save it to their favorites collection. The application uses a real-world API to fetch for disc information and displays the name of the disc, category (ex. putter or driver) and flight information. The application also includes a "filter by flight" feature to search discs by speed, glide, turn and fade. Favorited discs are saved to local storage and can be removed from your favorites.
+Fairway Favorites is a react app that allows a user to search for their favorite disc golf disc and save it to their favorites collection. The application uses a real-world API to fetch for disc information and displays the name of the disc, category (ex. putter or driver) and flight information. Favorited discs are saved to local storage and can be removed from your favorites. The application also includes a couple features like "filter by flight" to search discs by speed, glide, turn and fade and a game to play hangman and guess the hidden disc name. 
 
 ## Table of Contents 
 
