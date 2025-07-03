@@ -1,0 +1,140 @@
+/* styling for scorecard */
+.container {
+  background-color: #fafafa;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(255, 255, 255, 0.211);
+  padding: 30px;
+  max-width: 900px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 40px; /* Space for clear button */
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-self: center;
+}
+
+.scorecard-header {
+  text-align: center;
+  color: #000000;
+  margin-bottom: 30px;
+  font-size: 2.2em;
+  font-weight: 700;
+}
+
+.h2-header {
+  color: #34495e;
+  border-bottom: 2px solid #e0e6ed;
+  padding-bottom: 10px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-size: 1.6em;
+}
+
+.player-management,
+.hole-management,
+.scorecard-section,
+.leaderboard-section {
+  margin-bottom: 25px;
+}
+
+.player-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.player-input-group {
+  display: flex;
+  align-items: center;
+  background-color: #ecf0f1;
+  border-radius: 8px;
+  padding: 8px 12px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.player-name-input {
+  border: none;
+  background: transparent;
+  font-size: 1em;
+  padding: 5px 0;
+  outline: none;
+  color: #34495e;
+  min-width: 120px;
+}
+
+.remove-player-btn {
+  background: none;
+  border: none;
+  color: #588157;
+  font-size: 1.2em;
+  cursor: pointer;
+  margin-left: 10px;
+  padding: 0 5px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.remove-player-btn:hover {
+  background-color: #3a5a4060;
+}
+
+.add-player-btn,
+.add-hole-btn,
+.remove-hole-btn,
+.clear-card-btn {
+  background-color: #588157;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-right: 10px;
+}
+
+.add-player-btn:hover,
+.add-hole-btn:hover,
+.remove-hole-btn:hover,
+.clear-card-btn:hover {
+  background-color: #3a5a40;
+  transform: translateY(-2px);
+}
+
+.add-player-btn:active,
+.add-hole-btn:active,
+.remove-hole-btn:active,
+.clear-card-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.remove-hole-btn {
+  background-color: #e74c3c;
+}
+
+.remove-hole-btn:hover {
+  background-color: #c0392b;
+}
+
+.remove-hole-btn:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.hole-controls {
+  display: flex;
+  gap: 10px;
+  /* margin-bottom: 20px; */
+}
+
+/* .table-container {
+  overflow-x: auto;
+  border: 1px solid #e0e6ed;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+} */

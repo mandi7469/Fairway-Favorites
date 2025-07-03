@@ -1,7 +1,8 @@
 /* styling for discCard component */
 .disc-card {
   position: relative;
-  border-radius: 1px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(255, 255, 255, 0.146);
   overflow: hidden;
   background-color: #1a1a1a;
   transition: transform 0.2s;
