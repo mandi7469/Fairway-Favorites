@@ -7,7 +7,7 @@ function Scorecard() {
   const [players, setPlayers] = useState(["Player 1", "Player 2"]);
   const [holesData, setHolesData] = useState([]);
   // state to manage the number of holes
-  const [numHoles, setNumHoles] = useState(18); // Default to 18 holes
+  const [numHoles, setNumHoles] = useState(18); // default to 18 holes
 
   // initialize holesData when numHoles changes
   useEffect(() => {
@@ -80,7 +80,7 @@ function Scorecard() {
       const updatedHoles = [...prevHolesData];
       updatedHoles[holeIndex] = {
         ...updatedHoles[holeIndex],
-        par: parseInt(newPar), 
+        par: parseInt(newPar) || "",
       };
       return updatedHoles;
     });
@@ -118,6 +118,22 @@ function Scorecard() {
     });
     return totals;
   }, [players, holesData]);
+
+  // calculate leaderboard standings
+  const leaderboard = useCallback(() => {
+    const totals = calculatePlayerTotals();
+    const sortedPlayers = Object.entries(totals)
+      .sort(([, scoreA], [, scoreB]) => scoreA - scoreB)
+      .map(([player, score]) => ({ player, score }));
+    return sortedPlayers;
+  }, [calculatePlayerTotals]);
+
+  // function to clear the scorecard for a new game
+  const clearScorecard = useCallback(() => {
+    setPlayers(["Player 1", "Player 2"]); // reset to default players
+    setNumHoles(18); // reset to default holes
+    // the useEffect for holesData will re-initialize based on new players/numHoles
+  }, []);
 
   // function to add a new hole
   const addHole = useCallback(() => {
@@ -223,7 +239,7 @@ function Scorecard() {
                   ))}
                 </tr>
               ))}
-              {/* Total Row */}
+              {/* total row */}
               <tr className="total-row">
                 <td colSpan="2">Total (vs Par)</td>
                 {players.map((player, index) => (
@@ -239,7 +255,37 @@ function Scorecard() {
         </div>
       </div>
 
-      {/* Leaderboard Section */}
+      {/* leaderboard section */}
+      <div className="leaderboard-section">
+        <h2 className="h2-header">Leaderboard</h2>
+        <ul className="leaderboard-list">
+          {leaderboard().map((entry, index) => {
+            let scoreType = "";
+            if (entry.score > 0) {
+              scoreType = "over-par";
+            } else if (entry.score === 0) {
+              scoreType = "even-par";
+            } else {
+              scoreType = "under-par";
+            }
+
+            return (
+              <li key={index} className="leaderboard-item">
+                <span className="leaderboard-rank">{index + 1}.</span>
+                <span className="leaderboard-player">{entry.player}</span>
+                <span className="leaderboard-score" data-score-type={scoreType}>
+                  {entry.score >= 0 ? `+${entry.score}` : entry.score}
+                </span>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      {/* clear scorecard button */}
+      <button onClick={clearScorecard} className="clear-card-btn">
+        Clear Scorecard
+      </button>
     </div>
   );
 }

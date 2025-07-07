@@ -7,7 +7,7 @@
   max-width: 900px;
   width: 100%;
   box-sizing: border-box;
-  margin-bottom: 40px; /* Space for clear button */
+  margin-bottom: 30px; /* space for clear button */
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -16,8 +16,8 @@
 
 .scorecard-header {
   text-align: center;
-  color: #000000;
-  margin-bottom: 30px;
+  color: #34495e;
+  margin-bottom: 20px;
   font-size: 2.2em;
   font-weight: 700;
 }
@@ -26,7 +26,7 @@
   color: #34495e;
   border-bottom: 2px solid #e0e6ed;
   padding-bottom: 10px;
-  margin-top: 30px;
+  margin-top: 20px;
   margin-bottom: 20px;
   font-size: 1.6em;
 }
@@ -35,7 +35,7 @@
 .hole-management,
 .scorecard-section,
 .leaderboard-section {
-  margin-bottom: 25px;
+  margin-bottom: 10px;
 }
 
 .player-list {
@@ -174,22 +174,22 @@ td {
   font-size: 1em;
   color: #000000;
   background-color: #ffffff;
-  -moz-appearance: textfield; /* Hide arrows for Firefox */
+  -moz-appearance: textfield; /* hide arrows for Firefox */
 }
 
 .par-input::-webkit-outer-spin-button,
 .par-input::-webkit-inner-spin-button,
 .score-input::-webkit-outer-spin-button,
 .score-input::-webkit-inner-spin-button {
-  -webkit-appearance: none; /* Hide arrows for Chrome, Safari, Edge */
+  -webkit-appearance: none; /* hide arrows for Chrome, Safari, Edge */
   margin: 0;
 }
 
 .par-input:focus,
 .score-input:focus {
-  border-color: #3498db;
+  border-color: #588157;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+  box-shadow: 0 0 0 3px #5881574e;
 }
 
 .total-row td {
@@ -202,7 +202,65 @@ td {
   font-size: 1.1em;
 }
 
+.leaderboard-list {
+  list-style: none;
+  padding: 0;
+}
 
+.leaderboard-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fdfdfd;
+  border: 1px solid #e0e6ed;
+  border-radius: 8px;
+  padding: 15px 20px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.leaderboard-item:hover {
+  transform: translateY(-3px);
+}
+
+.leaderboard-rank {
+  font-weight: 700;
+  color: #588157;
+  margin-right: 15px;
+  min-width: 25px;
+}
+
+.leaderboard-player {
+  flex-grow: 1;
+  font-weight: 600;
+  color: #34495e;
+}
+
+.leaderboard-score {
+  font-weight: 700;
+  color: #27ae60; /* green for under par */
+  min-width: 50px;
+  text-align: right;
+}
+
+.leaderboard-score[data-score-type="over-par"] {
+  color: #e74c3c; /* red for over par */
+}
+
+.leaderboard-score[data-score-type="even-par"] {
+  color: #f39c12; /* orange for even par */
+}
+
+.clear-card-btn {
+  display: block;
+  margin: 30px auto 0;
+  background-color: #e74c3c;
+}
+
+.clear-card-btn:hover {
+  background-color: #c0392b;
+}
 
 /* responsive adjustments */
 @media (max-width: 768px) {
@@ -228,7 +286,7 @@ td {
   }
 
   .player-name-input {
-    width: calc(100% - 40px); 
+    width: calc(100% - 40px);
   }
 
   .add-player-btn,
