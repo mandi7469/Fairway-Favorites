@@ -9,6 +9,16 @@ function Scorecard() {
   // state to manage the number of holes
   const [numHoles, setNumHoles] = useState(18); // Default to 18 holes
 
+  // initialize holesData when numHoles changes
+  useEffect(() => {
+    const initialHoles = Array.from({ length: numHoles }, (_, i) => ({
+      hole: i + 1,
+      par: 3, // default par for each hole
+      scores: players.reduce((acc, player) => ({ ...acc, [player]: "" }), {}), // initialize scores for each player
+    }));
+    setHolesData(initialHoles);
+  }, [numHoles, players]); // re-run if numHoles or players change
+
   // function to handle changes in player names
   const handlePlayerNameChange = useCallback((index, newName) => {
     setPlayers((prevPlayers) => {
@@ -63,6 +73,51 @@ function Scorecard() {
       })
     );
   }, []);
+
+  // function to handle par input changes for a specific hole
+  const handleParChange = useCallback((holeIndex, newPar) => {
+    setHolesData((prevHolesData) => {
+      const updatedHoles = [...prevHolesData];
+      updatedHoles[holeIndex] = {
+        ...updatedHoles[holeIndex],
+        par: parseInt(newPar), 
+      };
+      return updatedHoles;
+    });
+  }, []);
+
+  // function to handle score input changes for a specific player and hole
+  const handleScoreChange = useCallback((holeIndex, playerName, newScore) => {
+    setHolesData((prevHolesData) => {
+      const updatedHoles = [...prevHolesData];
+      updatedHoles[holeIndex] = {
+        ...updatedHoles[holeIndex],
+        scores: {
+          ...updatedHoles[holeIndex].scores,
+          [playerName]: parseInt(newScore) || "", // store empty string if input is not a valid number
+        },
+      };
+      return updatedHoles;
+    });
+  }, []);
+
+  // function to calculate total score for each player
+  const calculatePlayerTotals = useCallback(() => {
+    const totals = {};
+    players.forEach((player) => {
+      let totalScore = 0;
+      let totalPar = 0;
+      holesData.forEach((hole) => {
+        const playerScore = hole.scores[player];
+        if (typeof playerScore === "number") {
+          totalScore += playerScore;
+          totalPar += hole.par;
+        }
+      });
+      totals[player] = totalScore - totalPar; // score relative to par
+    });
+    return totals;
+  }, [players, holesData]);
 
   // function to add a new hole
   const addHole = useCallback(() => {
@@ -127,8 +182,64 @@ function Scorecard() {
       {/* scorecard table */}
       <div className="scorecard-section">
         <h2 className="h2-header">Scorecard</h2>
-        <div className="table-container"></div>
+        <div className="table-container">
+          <table className="scorecard-table">
+            <thead>
+              <tr>
+                <th>Hole</th>
+                <th>Par</th>
+                {players.map((player, index) => (
+                  <th key={index}>{player}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {holesData.map((holeData, holeIndex) => (
+                <tr key={holeData.hole}>
+                  <td>{holeData.hole}</td>
+                  <td>
+                    <input
+                      type="number"
+                      value={holeData.par}
+                      onChange={(e) =>
+                        handleParChange(holeIndex, e.target.value)
+                      }
+                      min="1"
+                      className="par-input"
+                    />
+                  </td>
+                  {players.map((player, playerIndex) => (
+                    <td key={playerIndex}>
+                      <input
+                        type="number"
+                        value={holeData.scores[player]}
+                        onChange={(e) =>
+                          handleScoreChange(holeIndex, player, e.target.value)
+                        }
+                        min="1"
+                        className="score-input"
+                      />
+                    </td>
+                  ))}
+                </tr>
+              ))}
+              {/* Total Row */}
+              <tr className="total-row">
+                <td colSpan="2">Total (vs Par)</td>
+                {players.map((player, index) => (
+                  <td key={index} className="total-score">
+                    {calculatePlayerTotals()[player] >= 0
+                      ? `+${calculatePlayerTotals()[player]}`
+                      : calculatePlayerTotals()[player]}
+                  </td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
+
+      {/* Leaderboard Section */}
     </div>
   );
 }
