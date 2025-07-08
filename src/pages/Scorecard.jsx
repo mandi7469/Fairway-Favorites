@@ -2,22 +2,76 @@
 import { useState, useEffect, useCallback } from "react";
 import "../css/Scorecard.css";
 
+// constants for local storage keys
+const LOCAL_STORAGE_PLAYERS_KEY = "discGolfScorecardPlayers";
+const LOCAL_STORAGE_HOLES_DATA_KEY = "discGolfScorecardHolesData";
+const LOCAL_STORAGE_NUM_HOLES_KEY = "discGolfScorecardNumHoles";
+
 // main component for disc golf scorecard
 function Scorecard() {
-  const [players, setPlayers] = useState(["Player 1", "Player 2"]);
-  const [holesData, setHolesData] = useState([]);
-  // state to manage the number of holes
-  const [numHoles, setNumHoles] = useState(18); // default to 18 holes
+  const [players, setPlayers] = useState(() => {
+    const storedPlayers = localStorage.getItem(LOCAL_STORAGE_PLAYERS_KEY);
+    return storedPlayers ? JSON.parse(storedPlayers) : ["Player 1", "Player 2"];
+  });
 
-  // initialize holesData when numHoles changes
+  // state to manage the number of holes
+  const [numHoles, setNumHoles] = useState(() => {
+    const storedNumHoles = localStorage.getItem(LOCAL_STORAGE_NUM_HOLES_KEY);
+    return storedNumHoles ? parseInt(storedNumHoles, 10) : 18;
+  }); // default to 18 holes
+
+  const [holesData, setHolesData] = useState(() => {
+    const storedHolesData = localStorage.getItem(LOCAL_STORAGE_HOLES_DATA_KEY);
+    if (storedHolesData) {
+      return JSON.parse(storedHolesData);
+    } else {
+      // if no data in localstorage, initialize based on default numHoles and players
+      return Array.from({ length: numHoles }, (_, i) => ({
+        hole: i + 1,
+        par: 3, // default par for each hole
+        scores: players.reduce((acc, player) => ({ ...acc, [player]: "" }), {}), // initialize scores for each player
+      }));
+    }
+  });
+
+  // effect to synchronize holesData when numHoles or players change, primarily for initial setup or when adding/removing players/holes
   useEffect(() => {
-    const initialHoles = Array.from({ length: numHoles }, (_, i) => ({
-      hole: i + 1,
-      par: 3, // default par for each hole
-      scores: players.reduce((acc, player) => ({ ...acc, [player]: "" }), {}), // initialize scores for each player
-    }));
-    setHolesData(initialHoles);
-  }, [numHoles, players]); // re-run if numHoles or players change
+    setHolesData((prevHolesData) => {
+      let newHolesData = Array.from({ length: numHoles }, (_, i) => {
+        const existingHole = prevHolesData[i];
+        return {
+          hole: i + 1,
+          par: existingHole ? existingHole.par : 3,
+          scores: players.reduce((acc, player) => {
+            // Preserve existing scores for current players
+            acc[player] = existingHole?.scores[player] ?? "";
+            return acc;
+          }, {}),
+        };
+      });
+
+      // if players were removed, ensure their scores are gone from all holes
+      newHolesData = newHolesData.map((hole) => {
+        const updatedScores = {};
+        players.forEach((player) => {
+          updatedScores[player] = hole.scores[player] ?? "";
+        });
+        return { ...hole, scores: updatedScores };
+      });
+
+      return newHolesData;
+    });
+  }, [numHoles, players]);
+
+  // effect to save players, numHoles, and holesData to local storage
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_PLAYERS_KEY, JSON.stringify(players));
+    localStorage.setItem(
+      LOCAL_STORAGE_HOLES_DATA_KEY,
+      JSON.stringify(holesData)
+    );
+    localStorage.setItem(LOCAL_STORAGE_NUM_HOLES_KEY, numHoles.toString());
+  }, [players, holesData, numHoles]);
 
   // function to handle changes in player names
   const handlePlayerNameChange = useCallback((index, newName) => {
@@ -130,9 +184,21 @@ function Scorecard() {
 
   // function to clear the scorecard for a new game
   const clearScorecard = useCallback(() => {
-    setPlayers(["Player 1", "Player 2"]); // reset to default players
-    setNumHoles(18); // reset to default holes
-    // the useEffect for holesData will re-initialize based on new players/numHoles
+    // clear local storage
+    localStorage.removeItem(LOCAL_STORAGE_PLAYERS_KEY);
+    localStorage.removeItem(LOCAL_STORAGE_HOLES_DATA_KEY);
+    localStorage.removeItem(LOCAL_STORAGE_NUM_HOLES_KEY);
+
+    // reset states to their initial default values
+    setPlayers(["Player 1", "Player 2"]);
+    setNumHoles(18);
+    setHolesData(
+      Array.from({ length: 18 }, (_, i) => ({
+        hole: i + 1,
+        par: 3,
+        scores: { "Player 1": "", "Player 2": "" },
+      }))
+    );
   }, []);
 
   // function to add a new hole
@@ -142,7 +208,7 @@ function Scorecard() {
 
   // function to remove the last hole
   const removeHole = useCallback(() => {
-    setNumHoles((prevNum) => Math.max(1, prevNum - 1)); // Ensure at least 1 hole remains
+    setNumHoles((prevNum) => Math.max(1, prevNum - 1)); // ensure at least 1 hole remains
   }, []);
 
   return (

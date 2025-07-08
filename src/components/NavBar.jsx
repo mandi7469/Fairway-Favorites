@@ -17,15 +17,15 @@ function NavBar() {
           Home
         </Link>
         <Link to="/favorites" className="nav-link">
-          <i class="bi bi-heart"></i>
+          <i className="bi bi-heart"></i>
           Favorites
         </Link>
         <Link to="/game" className="nav-link">
-          <i class="bi bi-controller"></i>
+          <i className="bi bi-controller"></i>
           Game
         </Link>
         <Link to="/scorecard" className="nav-link">
-          <i class="bi bi-card-text"></i>
+          <i className="bi bi-card-text"></i>
           Scorecard
         </Link>
       </div>
