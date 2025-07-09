@@ -28,6 +28,10 @@ function NavBar() {
           <i className="bi bi-card-text"></i>
           Scorecard
         </Link>
+         <Link to="/pdga" className="nav-link">
+          <i className="bi bi-geo-alt"></i>
+          PDGA
+        </Link>
       </div>
     </nav>
   );

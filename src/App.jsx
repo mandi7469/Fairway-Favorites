@@ -7,6 +7,7 @@ import NavBar from "./components/NavBar";
 import "./css/App.css";
 import Game from "./pages/Game";
 import Scorecard from "./pages/Scorecard";
+import PDGA from "./pages/PDGA";
 
 // main application component that sets up overall structure including routing, global state provision and navigation
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/game" element={<Game />} />
           <Route path="/scorecard" element={<Scorecard />} />
+          <Route path="/pdga" element={<PDGA />} />
         </Routes>
       </main>
     </DiscProvider>
