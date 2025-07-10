@@ -30,7 +30,7 @@ function NavBar() {
         </Link>
          <Link to="/pdga" className="nav-link">
           <i className="bi bi-geo-alt"></i>
-          PDGA
+          UDisc
         </Link>
       </div>
     </nav>
