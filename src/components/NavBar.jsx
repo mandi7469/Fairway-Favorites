@@ -32,6 +32,10 @@ function NavBar() {
           <i className="bi bi-geo-alt"></i>
           UDisc
         </Link>
+        <Link to="/upload" className="nav-link">
+          <i class="bi bi-upload"></i>
+          Upload
+        </Link>
       </div>
     </nav>
   );

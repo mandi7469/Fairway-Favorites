@@ -8,6 +8,7 @@ import "./css/App.css";
 import Game from "./pages/Game";
 import Scorecard from "./pages/Scorecard";
 import PDGA from "./pages/PDGA";
+import Upload from "./pages/Upload";
 
 // main application component that sets up overall structure including routing, global state provision and navigation
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/game" element={<Game />} />
           <Route path="/scorecard" element={<Scorecard />} />
           <Route path="/pdga" element={<PDGA />} />
+          <Route path="/upload" element={<Upload />} />
         </Routes>
       </main>
     </DiscProvider>
