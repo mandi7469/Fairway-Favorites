@@ -103,6 +103,7 @@
   margin-top: auto;
 }
 
+/* responsive adjustments */
 @media (max-width: 768px) {
   .disc-card {
     font-size: 0.9rem;

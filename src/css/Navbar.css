@@ -34,6 +34,7 @@ i {
   margin-right: 3px;
 }
 
+/* responsive adjustments */
 @media (max-width: 768px) {
   .navbar {
     padding: 1rem;
