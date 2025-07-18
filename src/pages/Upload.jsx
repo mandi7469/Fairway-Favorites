@@ -1,5 +1,6 @@
 // imports
 import { useState, useRef, useEffect } from "react";
+import localforage from "localforage";
 import "../css/Upload.css";
 
 function Upload() {
@@ -9,6 +10,17 @@ function Upload() {
   // ref for the file input element to programmatically click it
   const fileInputRef = useRef(null);
 
+  useEffect(() => {
+    localforage.config({
+      name: "discGolfVideos",
+      storeName: "videos",
+      description: "Storage for users uploaded disc golf videos",
+    });
+
+    // Load videos from localForage when the component mounts
+    loadVideosFromLocalForage();
+  }, []);
+
   // effect to clean up Blob URLs when the component unmounts or videos change, this prevents memory leaks by revoking object URLs
   useEffect(() => {
     return () => {
@@ -16,25 +28,59 @@ function Upload() {
     };
   }, [videos]); // re-run when the videos array changes
 
+  const loadVideosFromLocalForage = async () => {
+    try {
+      const storedVideos = await localforage.getItem("uploadedVideos"); // key for video array
+      if (storedVideos) {
+        // recreate Blob URLs for display
+        const videosWithUrls = storedVideos.map((video) => ({
+          ...video,
+          url: URL.createObjectURL(video.file), // 'file' here will be the Blob/File object
+        }));
+        setVideos(videosWithUrls);
+      }
+    } catch (err) {
+      console.error("Error loading videos from localForage:", err);
+    }
+  };
+
+  const saveVideosToLocalForage = async (videosToSave) => {
+    try {
+      // only want to save the raw File/Blob, not the Blob URL, as it's transient
+      const videosWithoutUrls = videosToSave.map(
+        ({ id, description, timestamp, file }) => ({
+          id,
+          description,
+          timestamp,
+          file, // store the actual File/Blob object
+        })
+      );
+      await localforage.setItem("uploadedVideos", videosWithoutUrls);
+    } catch (err) {
+      console.error("Error saving videos to localForage:", err);
+    }
+  };
+
   // handler for when a file is selected via the input
-  const handleVideoUpload = (event) => {
-    const file = event.target.files[0]; // Get the first selected file
+  const handleVideoUpload = async (event) => {
+    const file = event.target.files[0];
 
     if (file) {
-      // create a URL for the file using URL.createObjectURL. this allows the browser to play the local video file
       const videoUrl = URL.createObjectURL(file);
       const newVideo = {
-        id: Date.now(), // unique ID based on timestamp
-        url: videoUrl,
-        description: currentDescription || "No description provided.", // use current description or default
-        timestamp: new Date().toLocaleString(), // formatted timestamp
+        id: Date.now(),
+        url: videoUrl, // this URL is temporary for display
+        file: file, // store the actual file (Blob) for persistence
+        description: currentDescription || "No description provided.",
+        timestamp: new Date().toLocaleString(),
       };
 
-      // add the new video to the beginning of the videos array (like a social feed)
-      setVideos((prevVideos) => [newVideo, ...prevVideos]);
-      // clear the description input after upload
+      setVideos((prevVideos) => {
+        const updatedVideos = [newVideo, ...prevVideos];
+        saveVideosToLocalForage(updatedVideos); // save updated videos
+        return updatedVideos;
+      });
       setCurrentDescription("");
-      // reset the file input value to allow uploading the same file again
       event.target.value = null;
     }
   };
