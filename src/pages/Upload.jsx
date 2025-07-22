@@ -17,7 +17,7 @@ function Upload() {
       description: "Storage for users uploaded disc golf videos",
     });
 
-    // Load videos from localForage when the component mounts
+    // load videos from localForage when the component mounts
     loadVideosFromLocalForage();
   }, []);
 
@@ -72,7 +72,7 @@ function Upload() {
         url: videoUrl, // this URL is temporary for display
         file: file, // store the actual file (Blob) for persistence
         description: currentDescription || "No description provided.",
-        timestamp: new Date().toLocaleString(),
+        timestamp: new Date().toLocaleDateString(),
       };
 
       setVideos((prevVideos) => {
@@ -83,6 +83,25 @@ function Upload() {
       setCurrentDescription("");
       event.target.value = null;
     }
+  };
+
+  const handleDeleteVideo = async (videoIdToDelete) => {
+    setVideos((prevVideos) => {
+      // find the video to be deleted to revoke its URL
+      const videoToDelete = prevVideos.find(
+        (video) => video.id === videoIdToDelete
+      );
+      if (videoToDelete) {
+        URL.revokeObjectURL(videoToDelete.url); // revoke the blob URL to free up memory
+      }
+
+      // filter out the deleted video
+      const updatedVideos = prevVideos.filter(
+        (video) => video.id !== videoIdToDelete
+      );
+      saveVideosToLocalForage(updatedVideos); // save the updated list to localForage
+      return updatedVideos;
+    });
   };
 
   // handler for the "Upload Video" button click
@@ -135,6 +154,13 @@ function Upload() {
                   <span className="video-timestamp">
                     Uploaded: {video.timestamp}
                   </span>
+                  <button
+                    className="delete-button"
+                    onClick={() => handleDeleteVideo(video.id)}
+                    aria-label={`Delete video: ${video.description}`}
+                  >
+                    Delete Video
+                  </button>
                 </div>
               </div>
             ))
