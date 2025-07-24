@@ -1,12 +1,16 @@
 /* styling for upload page */
 
 .container {
-  /* max-width: 800px; */
-  margin: 20px auto;
-  background-color: #ffffff;
+ background-color: #fafafa;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.211);
+  padding: 30px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 5px;
+  max-width: 1100px;
+  display: flex;
+  flex-direction: column;
 }
 
 .app-header {
@@ -155,21 +159,74 @@
 }
 
 .delete-button {
-  background-color: #dc3545;
+  background-color: #e74c3c;
   color: white;
   border: none;
   padding: 6px 10px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 0.9em;
-  margin-top: 10px;
   transition: background-color 0.3s ease;
-  display: flex;
-  justify-self: center;
+  /* display: flex;
+  justify-self: center; */
 }
 
 .delete-button:hover {
-  background-color: #c82333;
+  background-color: #c0392b;
+}
+
+.edit-description-textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #ececec;
+  color: #444;
+}
+
+.edit-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.action-buttons i {
+  color: white;
+}
+
+.edit-button,
+.save-button,
+.cancel-button {
+  background-color: #588157;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.edit-button:hover,
+.save-button:hover {
+  background-color: #3a5a40;
+}
+
+.cancel-button {
+  background-color: #6c757d;
+}
+
+.cancel-button:hover {
+  background-color: #5a6268;
 }
 
 /* responsive adjustments */

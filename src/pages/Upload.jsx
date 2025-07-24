@@ -1,6 +1,7 @@
 // imports
 import { useState, useRef, useEffect } from "react";
 import localforage from "localforage";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import "../css/Upload.css";
 
 function Upload() {
@@ -9,6 +10,9 @@ function Upload() {
   const [currentDescription, setCurrentDescription] = useState("");
   // ref for the file input element to programmatically click it
   const fileInputRef = useRef(null);
+  // new state to hold the ID of the vdeo being edited and state to hold the description being edited
+  const [editingVideoId, setEditingVideoId] = useState(null);
+  const [editingDescription, setEditingDescription] = useState("");
 
   useEffect(() => {
     localforage.config({
@@ -110,6 +114,38 @@ function Upload() {
     fileInputRef.current.click();
   };
 
+  // function to enter edit mode for a video description
+  const handleEditDescription = (videoId, description) => {
+    setEditingVideoId(videoId);
+    setEditingDescription(description);
+  };
+
+  // function to handle changes in editing description textarea
+  const handleEditingDescriptionChange = (e) => {
+    setEditingDescription(e.target.value);
+  };
+
+  // function to save the edited description
+  const handleSaveDescription = async (videoId) => {
+    setVideos((prevVideos) => {
+      const updatedVideos = prevVideos.map((video) =>
+        video.id === videoId
+          ? { ...video, description: editingDescription }
+          : video
+      );
+      saveVideosToLocalForage(updatedVideos);
+      return updatedVideos;
+    });
+    setEditingVideoId(null); // Exit edit mode
+    setEditingDescription(""); // Clear editing description state
+  };
+
+  // function to cancel editing
+  const handleCancelEdit = () => {
+    setEditingVideoId(null);
+    setEditingDescription("");
+  };
+
   return (
     <div className="container">
       <header className="app-header">
@@ -150,17 +186,62 @@ function Upload() {
                   Your browser does not support the video tag.
                 </video>
                 <div className="video-details">
-                  <p className="video-description">{video.description}</p>
+                  {editingVideoId === video.id ? (
+                    // render textarea and save/cancel buttons if in edit mode
+                    <>
+                      <textarea
+                        value={editingDescription}
+                        onChange={handleEditingDescriptionChange}
+                        rows="3"
+                        className="edit-description-textarea"
+                        aria-label="Edit video description"
+                      ></textarea>
+                      <div className="edit-buttons">
+                        <button
+                          className="save-button"
+                          onClick={() => handleSaveDescription(video.id)}
+                          aria-label="Save description"
+                        >
+                          Save
+                        </button>
+                        <button
+                          className="cancel-button"
+                          onClick={handleCancelEdit}
+                          aria-label="Cancel editing description"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    // render static description and edit button
+                    <>
+                      <p className="video-description">{video.description}</p>
+                      <div className="action-buttons">
+                        <button
+                          className="delete-button"
+                          onClick={() => handleDeleteVideo(video.id)}
+                          aria-label={`Delete video: ${video.description}`}
+                        >
+                          <i className="bi bi-trash3"></i>
+                        </button>
+
+                        <button
+                          className="edit-button"
+                          onClick={() =>
+                            handleEditDescription(video.id, video.description)
+                          }
+                          aria-label={`Edit description for video: ${video.description}`}
+                        >
+                          <i className="bi bi-pencil"></i>
+                        </button>
+                      </div>
+                    </>
+                  )}
+
                   <span className="video-timestamp">
                     Uploaded: {video.timestamp}
                   </span>
-                  <button
-                    className="delete-button"
-                    onClick={() => handleDeleteVideo(video.id)}
-                    aria-label={`Delete video: ${video.description}`}
-                  >
-                    Delete Video
-                  </button>
                 </div>
               </div>
             ))
