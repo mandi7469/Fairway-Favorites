@@ -11,7 +11,17 @@
 
 ## Description
 
-Fairway Favorites is a react app that allows a user to search for their favorite disc golf disc and save it to their favorites collection. The application uses a real-world API to fetch for disc information and displays the name of the disc, category (ex. putter or driver) and flight information. Favorited discs are saved to local storage and can be removed from your favorites. The application also includes a couple features like "filter by flight" to search discs by speed, glide, turn and fade and a game to play hangman and guess the hidden disc name. 
+Fairway Favorites is a react app with many disc golf related features for the user!
+
+The Home page allows a user to search for their favorite disc golf disc and save it to a favorites collection page. The application uses a real-world API to fetch for disc information and displays the name of the disc, category (ex. putter or driver) and flight information. The search page also includes "filter by flight" to search discs by speed, glide, turn and fade.  
+
+The Game page features a hangman game for the user to guess the hidden disc name by typing one letter at a time until the user has guessed the correct word (with an alert congratulating the win) or when the whole hangman has been displayed (with an alert notifying the loss). Win or lose, you can continue playing as the word is ranomized and different each time. 
+
+The Scorecard page allows a user to input player scores during their disc golf round. The scorecard defaults to two players, 18 holes and a par of 3 for each hole, but these can be updated. You can add or remove players and the number of holes being played and adjust the par settings per the course's layout. While inputting the scores for each player during a round, a leaderboard reflects the ranking and color corrdinates if a player is under-par (green), even-par (orange) or over-par (red). The scorecard is saved to localstorage for future reveiw and can be cleared to its default setting.
+
+The UDisc page displays an iframe for a user to explore disc golf courses from around the world using the official UDisc directory. Functionality and layout is controlled by the external site. If a user's browser does not support iframes, a link to visit the website is displayed and will redirect the user to explore. 
+
+The Upload page allows a user to upload videos of their favorite disc golf shots. The user can add a description of the video prior to uploading. If one is not entered, the default description will display "No description provided". After the video is posted, the description can be edited and saved. Videos are saved to localForage and has the option to be deleted. 
 
 ## Table of Contents 
 
@@ -28,7 +38,6 @@ Fairway Favorites is a react app that allows a user to search for their favorite
 [<img height="50" width="50" align="center" alt="Vite" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitejs/vitejs-original.svg">]()
 [<img height="50" width="50" align="center" alt="Javascript" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-plain.svg"/>]() [<img height="50" width="50" align="center" alt="CSS" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original-wordmark.svg"/>]()
 
-
 ## Installation
 
 1. Clone project repository down into your desired directory
@@ -38,7 +47,7 @@ Fairway Favorites is a react app that allows a user to search for their favorite
 
 ## Usage
 
-The following animation shows the application's appearance and functionality:
+**For Disc Golf Lovers**
 
 ![Animation shows the appearance and functionality.. coming soon]()
 

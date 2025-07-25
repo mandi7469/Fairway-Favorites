@@ -28,7 +28,7 @@ function NavBar() {
           <i className="bi bi-card-text"></i>
           Scorecard
         </Link>
-         <Link to="/pdga" className="nav-link">
+         <Link to="/udisc" className="nav-link">
           <i className="bi bi-geo-alt"></i>
           UDisc
         </Link>

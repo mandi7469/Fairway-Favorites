@@ -24,7 +24,7 @@ function App() {
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/game" element={<Game />} />
           <Route path="/scorecard" element={<Scorecard />} />
-          <Route path="/pdga" element={<PDGA />} />
+          <Route path="/udisc" element={<PDGA />} />
           <Route path="/upload" element={<Upload />} />
         </Routes>
       </main>
