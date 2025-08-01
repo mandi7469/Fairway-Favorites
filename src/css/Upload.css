@@ -1,7 +1,7 @@
 /* styling for upload page */
 
 .container {
- background-color: #fafafa;
+  background-color: #fafafa;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(255, 255, 255, 0.211);
   padding: 30px;
@@ -14,17 +14,9 @@
 }
 
 .app-header {
-  background-color: #588157;
-  color: white;
+  color: #588157;
   padding: 20px;
   text-align: center;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-}
-
-.app-header h1 {
-  margin: 0;
-  font-size: 2em;
 }
 
 .main-content {
@@ -66,6 +58,11 @@
   resize: vertical;
   min-height: 80px;
   color: #777;
+}
+
+.upload-section textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #5881574e;
 }
 
 .upload-button {
@@ -182,6 +179,11 @@
   box-sizing: border-box;
   background-color: #ececec;
   color: #444;
+}
+
+.edit-description-textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #5881574e;
 }
 
 .edit-buttons {

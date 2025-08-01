@@ -1,4 +1,5 @@
 /* styling for navbar component */
+
 .navbar {
   background-color: #000000;
   padding: 1rem 1rem;
@@ -58,6 +59,11 @@ i:hover {
   z-index: 1001;
 }
 
+.hamburger-menu:focus{
+  outline: none;
+  box-shadow: 0 0 0 2px #588157;
+}
+
 /* drawer styles */
 .drawer {
   position: fixed;
@@ -87,6 +93,11 @@ i:hover {
   cursor: pointer;
   align-self: flex-end;
   padding: 1rem;
+}
+
+.close-drawer:focus{
+  outline: none;
+  box-shadow: 0 0 0 2px #588157;
 }
 
 .drawer-links {

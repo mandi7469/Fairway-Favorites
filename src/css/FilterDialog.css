@@ -103,12 +103,12 @@
 }
 
 .action-button.clear-button {
-  background-color: #dc3545;
+  background-color: #e74c3c;
   color: white;
 }
 
 .action-button.clear-button:hover {
-  background-color: #c82333;
+  background-color: #c0392b;
   transform: translateY(-2px);
 }
 
@@ -120,4 +120,9 @@
 .action-button.apply-button:hover {
   background-color: #4d714d;
   transform: translateY(-2px);
+}
+
+.action-button.apply-button:focus,
+.action-button.clear-button:focus {
+  outline: none;
 }

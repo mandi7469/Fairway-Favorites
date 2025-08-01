@@ -149,12 +149,12 @@ function Upload() {
   return (
     <div className="container">
       <header className="app-header">
-        <h1>Disc Golf Video Feed</h1>
+        <h1>Fairway Favorites Video Feed</h1>
       </header>
 
       <div className="main-content">
         <div className="upload-section">
-          <h2>Fairway Favorite Videos</h2>
+          
           <input
             type="file"
             accept="video/*"

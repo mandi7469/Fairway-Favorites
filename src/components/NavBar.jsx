@@ -34,8 +34,8 @@ function NavBar() {
       {/* regular navigation links for larger screens, these links will be hidden on screens smaller than 980px */}
       <div className="navbar-links-desktop">
         <Link to="/" className="nav-link">
-          <i className="bi bi-house"></i>
-          Home
+          <i className="bi bi-search"></i>
+          Search
         </Link>
         <Link to="/favorites" className="nav-link">
           <i className="bi bi-heart"></i>
@@ -73,8 +73,8 @@ function NavBar() {
         {/* navigation links inside the drawer */}
         <div className="drawer-links">
           <Link to="/" className="drawer-link" onClick={toggleDrawer}>
-            <i className="bi bi-house"></i>
-            Home
+            <i className="bi bi-search"></i>
+            Search
           </Link>
           <Link to="/favorites" className="drawer-link" onClick={toggleDrawer}>
             <i className="bi bi-heart"></i>
