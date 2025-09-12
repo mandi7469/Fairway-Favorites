@@ -32,7 +32,8 @@ function Home() {
     const fetchDiscs = async () => {
       try {
         // GET request to the disc API endpoint
-        const response = await fetch("https://discit-api.fly.dev/disc");
+        // const response = await fetch("https://discit-api.fly.dev/disc");
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/disc`);
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
