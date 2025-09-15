@@ -51,9 +51,9 @@ The Upload page allows a user to upload videos of their favorite disc golf shots
 
 The images show the web application's apperance
 
-<img src="./src/assets/images/homePage.png"><img src="./src/assets/images/filter.png">
-<img src="./src/assets/images/favoritesPage.png"><img src="./src/assets/images/gamePage.png">
-<img src="./src/assets/images/udiscPage.png"><img src="./src/assets/images/uploadPage.png">
+<img src="./src/assets/images/homePage.png" width="50%"><img src="./src/assets/images/filter.png" width="50%">
+<img src="./src/assets/images/favoritesPage.png" width="50%"><img src="./src/assets/images/gamePage.png" width="50%">
+<img src="./src/assets/images/udiscPage.png" width="50%"><img src="./src/assets/images/uploadPage.png" width="50%">
 <div align="center"><img src="./src/assets/images/scorecardPage.png" width="40%" height="650"></div>
 
 ## How to Contribute
