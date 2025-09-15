@@ -5,7 +5,7 @@
 [![Static Badge](https://img.shields.io/badge/GitHub-mandi7469-darkgreen)](https://github.com/mandi7469)
 [![Static Badge](https://img.shields.io/badge/LinkedIn-amandachanga-blue%20)](https://www.linkedin.com/in/amanda-changa/)
 
-[Deployed application link coming soon]() 
+[Deployed application link](fairway-favorites.netlify.app) 
 
 </div>
 
@@ -49,7 +49,14 @@ The Upload page allows a user to upload videos of their favorite disc golf shots
 
 **For lovers of the game** 🥏
 
-![Animation shows the appearance and functionality.. coming soon]()
+The images show the web application's apperance
+
+<img src="./src/assets/images/homePage.png" width="50%" height="275"><img src="./src/assets/images/filter.png" width="50%" height="275">
+<img src="./src/assets/images/favoritesPage.png" width="50%" height="275"><img src="./src/assets/images/gamePage.png" width="50%" height="275">
+<img src="./src/assets/images/udiscPage.png" width="50%" height="275"><img src="./src/assets/images/uploadPage.png" width="50%" height="275">
+<div align="center"><img src="./src/assets/images/scorecardPage.png" width="40%" height="650"></div>
+
+
 
 ## How to Contribute
 
